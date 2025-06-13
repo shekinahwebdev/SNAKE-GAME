@@ -6,6 +6,7 @@ let snakeX = 5,
 
 let velocityX = 0;
 let velocityY = 0;
+let snakeBody = [];
 
 // Function to generate random food position
 const generateRandomFoodPosition = () => {
@@ -41,11 +42,26 @@ const initializeGame = () => {
   if (snakeX === foodX && snakeY === foodY) {
     // Generate new food position
     generateRandomFoodPosition();
+    // Increase the snake size by adding a new segment
+    snakeBody.push([foodX, foodY]);
+    console.log(snakeBody);
   }
+
+  for (let i = snakeBody.length - 1; i > 0; i--) {
+    snakeBody[i] = snakeBody[i - 1]; // Move each segment to the position of the previous segment
+  }
+
+  //   adding the first segment of the snake
+  snakeBody[0] = [snakeX, snakeY];
 
   //   Update the snake position
   snakeX += velocityX;
   snakeY += velocityY;
+
+  // Update snake body positions by a div
+  for (let i = 0; i < snakeBody.length; i++) {
+    gameHTML += `<div class="snake" style="grid-area: ${snakeBody[i][0]} / ${snakeBody[i][1]}"></div>`;
+  }
 
   // Update the game board
   playBoard.innerHTML = gameHTML;
