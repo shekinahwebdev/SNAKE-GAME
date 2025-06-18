@@ -33,16 +33,16 @@ const handleGameOver = () => {
 // Function to handle direction change
 const handleDirectionChange = (event) => {
   const key = event.key;
-  if (key === "ArrowUp") {
+  if (key === "ArrowUp" && velocityX !== 1) {
     velocityX = -1;
     velocityY = 0;
-  } else if (key === "ArrowDown") {
+  } else if (key === "ArrowDown" && velocityX !== -1) {
     velocityX = 1;
     velocityY = 0;
-  } else if (key === "ArrowLeft") {
+  } else if (key === "ArrowLeft" && velocityY !== 1) {
     velocityX = 0;
     velocityY = -1;
-  } else if (key === "ArrowRight") {
+  } else if (key === "ArrowRight" && velocityY !== -1) {
     velocityX = 0;
     velocityY = 1;
   }
@@ -99,5 +99,5 @@ const initializeGame = () => {
 };
 
 generateRandomFoodPosition();
-setIntervalId = setInterval(initializeGame, 100); // Moving click continously
+setIntervalId = setInterval(initializeGame, 250); // Moving click continously
 document.addEventListener("keydown", handleDirectionChange); // Function to move the snake
